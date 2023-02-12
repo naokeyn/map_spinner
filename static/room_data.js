@@ -1,5 +1,5 @@
 // json の読み込み
-let dict
+let room_dict
 
 let requestURL = "static/data.json"
 let request = new XMLHttpRequest();
@@ -9,8 +9,8 @@ request.responseType = 'json';
 request.send();
 
 request.onload = function () {
-    dict = request.response;
-    dict = JSON.parse(JSON.stringify(dict));
+    room_dict = request.response;
+    room_dict = JSON.parse(JSON.stringify(room_dict));
 }
 
 const selecter_id = ["fac", "dep", "room"]
@@ -37,7 +37,7 @@ let add_opt_to_fac = () => {
     
     clear_opt(fac_id)
 
-    items = Object.keys(dict)
+    items = Object.keys(room_dict)
 
     for (let i = 0; i < items.length; i++) {
         let opt = document.createElement('option')
@@ -65,11 +65,11 @@ let selected = (key) => {
     // 次の要素配列を取得
     let arr
     if (key === 0) {
-        arr = Object.keys(dict[selected_val])
+        arr = Object.keys(room_dict[selected_val])
     }
     else if (key === 1) {
         let dep = document.getElementById(selecter_id[0]).value
-        arr = Object.keys(dict[dep][selected_val])
+        arr = Object.keys(room_dict[dep][selected_val])
     }
 
     // オプションをクリア
@@ -106,8 +106,8 @@ let descript = () => {
     let dep_val = document.getElementById("dep").value
     let room_val = document.getElementById("room").value
 
-    let floor = dict[fac_val][dep_val][room_val]["floor"]
-    let pointer = dict[fac_val][dep_val][room_val]["pointer"]
+    let floor = room_dict[fac_val][dep_val][room_val]["floor"]
+    let pointer = room_dict[fac_val][dep_val][room_val]["pointer"]
 
     floor_elm.innerHTML = floor
     pointer_elm.innerHTML = pointer
